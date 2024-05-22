@@ -10,7 +10,7 @@ This project is a full-stack web application that serve as URL shortener.
     - [Frontend](#frontend)
     - [Backend](#backend)
     - [Database](#database)
-    - [Docker] (#docker)   
+    - [Docker](#docker)   
     - [NGINX](#nginx)
 
 
@@ -30,7 +30,7 @@ tiny-url/
 │   ├── .env
 │   └── Dockerfile
 │       
-├── client/ # React.js Frontend
+├── client/ # Vite React.js Frontend
 │   ├── public/
 │   ├── src/
 │   │   ├── api/
@@ -81,9 +81,11 @@ The service is running on http://localhost:8080
 - maria_db port:3306
 - api (server) port:3001
 - web (client) port:5173
+
 Refer to docker-compose.yml for the detail 
 
 To bring down all the services
+
 At root folder, run the following command:
 
 ```
