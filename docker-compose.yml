@@ -1,0 +1,48 @@
+version: "3.3"
+
+services:
+  maria_db:
+    image: mariadb:latest
+    restart: always
+    volumes:
+      - "./setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+    expose:
+      - "3306"
+    environment:
+      MARIADB_DATABASE: myapp_db
+      MARIADB_ROOT_PASSWORD: abc123
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./server"
+    command: npm run start
+    depends_on:
+      - maria_db
+    expose:
+      - "3001"
+    restart: always
+
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: "./client"
+    # command: npm run start
+    # depends_on:
+      # - maria_db
+      # - api
+    expose:
+      - "5173"
+    # restart: always
+        
+  nginx_server:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    depends_on:
+      - maria_db
+      - api
+      - client
+    ports:
+      - "8080:8080"
